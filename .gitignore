@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Compiled Figma plugin output
+*.js
+!*.config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
