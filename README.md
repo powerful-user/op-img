@@ -44,7 +44,7 @@ Reduce color depth by posterizing to N bits per channel.
 ./bit-crush/bit-crush.sh <input> [output] [--bits N]
 ```
 
-Default: `--bits 2` (4 color levels)
+Default: `--bits 1` (2 color levels — 8 total colors)
 
 ![bit-crush example](_output/mclaren-crush-2bit.jpg)
 
@@ -79,7 +79,7 @@ Shift R, G, B channels by independent pixel amounts for a misregistered print / 
 ./channel-offset/channel-offset.sh <input> [output] [--r X,Y] [--g X,Y] [--b X,Y]
 ```
 
-Default: `--r 12,6 --b -10,-4`
+Default: `--r 30,15 --b -25,-10`
 
 ![channel-offset example](_output/mclaren-offset.jpg)
 
