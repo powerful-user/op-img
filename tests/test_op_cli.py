@@ -4,10 +4,14 @@ import pytest
 
 from conftest import assert_valid_image, skip_without_imagemagick
 
-ALL_TOOLS = [
-    "bit-crush", "channel-offset", "closest-palette", "cross-hatch",
-    "dot-halftone", "fold", "isolate-threshold", "line-halftone",
-    "pixel-sort", "res-crush", "scan-glitch", "stipple",
+ALL_PATCHES = [
+    "bit-crush", "channel-offset", "channel-swap",
+    "closest-palette", "cross-hatch", "dot-halftone", "echo",
+    "fold", "invert-lightness", "isolate-threshold",
+    "kaleidoscope", "line-halftone", "pixel-sort", "polar",
+    "posterize-hsv", "raw-bend", "res-crush", "scan-glitch", "seam-carve",
+    "slit-scan", "stipple", "thermal", "tile-shuffle",
+    "wrong-stride",
 ]
 
 
@@ -16,7 +20,7 @@ class TestHelp:
         r = run_op([])
         assert r.returncode == 0
         assert "Usage:" in r.stdout
-        assert "Available tools:" in r.stdout
+        assert "Patches (showing 3 of" in r.stdout
 
     def test_help_flag(self, run_op):
         r = run_op(["--help"])
@@ -28,14 +32,30 @@ class TestHelp:
         assert r.returncode == 0
         assert "Usage:" in r.stdout
 
-    def test_all_tools_listed(self, run_op):
+    def test_no_args_shows_three_patches(self, run_op):
         r = run_op([])
-        for tool in ALL_TOOLS:
-            assert tool in r.stdout, f"Tool '{tool}' not in help output"
+        patch_lines = [l for l in r.stdout.splitlines() if l.startswith("  ") and l.strip() in ALL_PATCHES]
+        assert len(patch_lines) == 3
+
+    def test_info_flag(self, run_op):
+        r = run_op(["--info", "scan-glitch"])
+        assert r.returncode == 0
+        assert "--severity" in r.stdout
+
+    def test_info_unknown_patch(self, run_op):
+        r = run_op(["--info", "nonexistent"])
+        assert r.returncode != 0
+
+    def test_list_flag_shows_all(self, run_op):
+        r = run_op(["--list"])
+        assert r.returncode == 0
+        assert "Available patches:" in r.stdout
+        for patch in ALL_PATCHES:
+            assert patch in r.stdout, f"Patch '{patch}' not in --list output"
 
 
 class TestDispatch:
-    def test_dispatch_python_tool(self, run_op, tmp_workdir):
+    def test_dispatch_python_patch(self, run_op, tmp_workdir):
         tmp_path, img = tmp_workdir
         out = str(tmp_path / "out.png")
         r = run_op(["scan-glitch", img, out, "--severity", "1", "--seed", "1"])
@@ -43,15 +63,15 @@ class TestDispatch:
         assert_valid_image(out)
 
     @skip_without_imagemagick()
-    def test_dispatch_shell_tool(self, run_op, tmp_workdir):
+    def test_dispatch_shell_patch(self, run_op, tmp_workdir):
         tmp_path, img = tmp_workdir
         out = str(tmp_path / "out.png")
         r = run_op(["bit-crush", img, out, "--bits", "2"])
         assert r.returncode == 0
         assert_valid_image(out)
 
-    def test_unknown_tool(self, run_op):
-        r = run_op(["nonexistent-tool"])
+    def test_unknown_patch(self, run_op):
+        r = run_op(["nonexistent-patch"])
         assert r.returncode != 0
-        assert "unknown tool" in r.stderr.lower()
-        assert "Available tools:" in r.stderr
+        assert "unknown patch" in r.stderr.lower()
+        assert "Available patches:" in r.stderr
