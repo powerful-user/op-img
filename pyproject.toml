@@ -1,0 +1,15 @@
+[project]
+name = "op-img"
+version = "0.1.0"
+description = "Image processing CLI tools"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+test = ["pytest>=7.0", "Pillow", "numpy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]
+markers = [
+    "imagemagick: tests requiring ImageMagick (magick CLI)",
+]
