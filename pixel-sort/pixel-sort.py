@@ -108,8 +108,6 @@ def main() -> None:
     metric_fn = METRIC_FN[args.by]
 
     if args.direction == "column":
-        pixels = pixels.T  # Transpose so we can iterate rows (which are now columns)
-        # After transpose shape is (3, W, H) for a (H, W, 3) array — need swapaxes
         pixels = np.transpose(pixels, (1, 0, 2))
         # Now shape is (W, H, 3), each "row" is a column of the original
 
