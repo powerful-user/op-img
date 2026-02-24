@@ -66,7 +66,7 @@ def main():
 
     r = args.dot_size
     for x, y in zip(xs, ys):
-        draw.ellipse([x - r, y - r, x + r, y + r], fill=(0, 0, 0, 255))
+        draw.ellipse([x - r, y - r, x + r, y + r], fill=(208, 101, 33, 255))
 
     out.save(args.output, "PNG")
     print(f"stipple: {os.path.basename(args.input)} -> {os.path.basename(args.output)} "

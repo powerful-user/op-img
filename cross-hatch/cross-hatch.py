@@ -58,7 +58,7 @@ def draw_hatch_layer(draw, img, w, h, angle_deg, spacing, threshold):
 
             brightness = pixels[xi, yi]
             if brightness < threshold:
-                draw.line([(px, py), (nx, ny)], fill=(0, 0, 0, 255), width=1)
+                draw.line([(px, py), (nx, ny)], fill=(208, 101, 33, 255), width=1)
 
 
 def main():

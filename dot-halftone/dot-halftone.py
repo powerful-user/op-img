@@ -16,7 +16,7 @@ def parse_args():
     p = argparse.ArgumentParser(description="Generate a halftone dot pattern from an image.")
     p.add_argument("input", help="Source image path")
     p.add_argument("output", nargs="?", default=None, help="Output PNG path (default: <input>-halftone.png)")
-    p.add_argument("--spacing", type=int, default=16, help="Pixels between dot centers (default: 16)")
+    p.add_argument("--spacing", type=int, default=8, help="Pixels between dot centers (default: 8)")
     p.add_argument("--min-dot", type=float, default=0, help="Minimum dot radius (default: 0)")
     p.add_argument("--max-dot", type=float, default=None, help="Maximum dot radius (default: spacing/2)")
     p.add_argument("--angle", type=float, default=0, help="Grid rotation in degrees (default: 0)")
@@ -80,7 +80,7 @@ def main():
 
             draw.ellipse(
                 [ix - radius, iy - radius, ix + radius, iy + radius],
-                fill=(0, 0, 0, 255),
+                fill=(208, 101, 33, 255),
             )
 
     out.save(args.output, "PNG")

@@ -4,7 +4,7 @@
 # Usage: ./res-crush.sh <input> [output] [--size N]
 #   input  - Source image (GIF, PNG, JPG, etc.)
 #   output - Output PNG path (default: <input>-pixelate-N.png)
-#   --size  - Downscale target in pixels (default: 32)
+#   --size  - Downscale target in pixels (default: 64)
 #
 # Example:
 #   ./res-crush.sh ~/Desktop/photo.png
@@ -12,7 +12,7 @@
 
 set -euo pipefail
 
-SIZE=32
+SIZE=64
 INPUT=""
 OUTPUT=""
 

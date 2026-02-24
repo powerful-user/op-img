@@ -63,7 +63,7 @@ def snap_to_palette(image: Image.Image, palette: np.ndarray) -> Image.Image:
     nearest = np.argmin(dists, axis=1)
     result = palette[nearest].reshape(h, w, 3)
 
-    return Image.fromarray(result, "RGB")
+    return Image.fromarray(result)
 
 
 def main() -> None:

@@ -117,7 +117,7 @@ def main() -> None:
     if args.direction == "column":
         pixels = np.transpose(pixels, (1, 0, 2))
 
-    result = Image.fromarray(pixels, "RGB")
+    result = Image.fromarray(pixels)
 
     if args.output:
         out_path = args.output
