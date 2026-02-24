@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE="$0"
+while [[ -L "$SOURCE" ]]; do
+  SOURCE="$(readlink "$SOURCE")"
+done
+SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+
+list_tools() {
+  echo "Available tools:"
+  for dir in "$SCRIPT_DIR"/*/; do
+    name="$(basename "$dir")"
+    if [[ -f "$dir/$name.sh" || -f "$dir/$name.py" ]]; then
+      echo "  $name"
+    fi
+  done
+}
+
+banner() {
+  cat <<'BANNER'
+░░      ░░░       ░░░        ░░  ░░░░  ░░░      ░░
+▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒   ▒▒   ▒▒  ▒▒▒▒▒▒▒
+▓  ▓▓▓▓  ▓▓       ▓▓▓▓▓▓  ▓▓▓▓▓        ▓▓  ▓▓▓   ▓
+█  ████  ██  ███████████  █████  █  █  ██  ████  █
+██      ███  ████████        ██  ████  ███      ██
+BANNER
+}
+
+if [[ $# -eq 0 || "$1" == "--help" || "$1" == "-h" ]]; then
+  banner
+  echo ""
+  echo "Usage: op <tool> <input> [output] [--opts]"
+  echo ""
+  list_tools
+  exit 0
+fi
+
+tool="$1"
+shift
+
+script_sh="$SCRIPT_DIR/$tool/$tool.sh"
+script_py="$SCRIPT_DIR/$tool/$tool.py"
+
+if [[ -f "$script_sh" ]]; then
+  exec "$script_sh" "$@"
+elif [[ -f "$script_py" ]]; then
+  exec python3 "$script_py" "$@"
+else
+  echo "Error: unknown tool '$tool'" >&2
+  echo "" >&2
+  list_tools >&2
+  exit 1
+fi
