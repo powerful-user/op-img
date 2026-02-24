@@ -20,7 +20,7 @@ class TestHelp:
         r = run_op([])
         assert r.returncode == 0
         assert "Usage:" in r.stdout
-        assert "Patches (showing 3 of" in r.stdout
+        assert "Patches (3 of" in r.stdout
 
     def test_help_flag(self, run_op):
         r = run_op(["--help"])

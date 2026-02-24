@@ -7,14 +7,33 @@ while [[ -L "$SOURCE" ]]; do
 done
 SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
 
-list_tools() {
-  echo "Available tools:"
+list_patches() {
+  echo "Available patches:"
   for dir in "$SCRIPT_DIR"/*/; do
     name="$(basename "$dir")"
     if [[ -f "$dir/$name.sh" || -f "$dir/$name.py" ]]; then
       echo "  $name"
     fi
   done
+}
+
+list_random_patches() {
+  local patches=()
+  for dir in "$SCRIPT_DIR"/*/; do
+    name="$(basename "$dir")"
+    if [[ -f "$dir/$name.sh" || -f "$dir/$name.py" ]]; then
+      patches+=("$name")
+    fi
+  done
+  local count=${#patches[@]}
+  echo "Patches (3 of $count):"
+  printf '%s\n' "${patches[@]}" | sort -R | head -3 | sort | while read -r t; do
+    echo "  $t"
+  done
+  echo ""
+  echo "Run 'op --list' to see all patches."
+  echo "Run 'op --info <patch>' to see available args."
+  echo ""
 }
 
 banner() {
@@ -28,27 +47,51 @@ BANNER
 }
 
 if [[ $# -eq 0 || "$1" == "--help" || "$1" == "-h" ]]; then
+  echo ""
   banner
   echo ""
-  echo "Usage: op <tool> <input> [output] [--opts]"
+  echo "Usage: op <patch> <input> [--args]"
   echo ""
-  list_tools
+  list_random_patches
   exit 0
 fi
 
-tool="$1"
+if [[ "$1" == "--list" ]]; then
+  list_patches
+  exit 0
+fi
+
+if [[ "$1" == "--info" ]]; then
+  if [[ $# -lt 2 ]]; then
+    echo "Usage: op --info <patch>" >&2
+    exit 1
+  fi
+  patch="$2"
+  script_sh="$SCRIPT_DIR/$patch/$patch.sh"
+  script_py="$SCRIPT_DIR/$patch/$patch.py"
+  if [[ -f "$script_py" ]]; then
+    exec python3 "$script_py" --help
+  elif [[ -f "$script_sh" ]]; then
+    exec "$script_sh" --help
+  else
+    echo "Error: unknown patch '$patch'" >&2
+    exit 1
+  fi
+fi
+
+patch="$1"
 shift
 
-script_sh="$SCRIPT_DIR/$tool/$tool.sh"
-script_py="$SCRIPT_DIR/$tool/$tool.py"
+script_sh="$SCRIPT_DIR/$patch/$patch.sh"
+script_py="$SCRIPT_DIR/$patch/$patch.py"
 
 if [[ -f "$script_sh" ]]; then
   exec "$script_sh" "$@"
 elif [[ -f "$script_py" ]]; then
   exec python3 "$script_py" "$@"
 else
-  echo "Error: unknown tool '$tool'" >&2
+  echo "Error: unknown patch '$patch'" >&2
   echo "" >&2
-  list_tools >&2
+  list_patches >&2
   exit 1
 fi
