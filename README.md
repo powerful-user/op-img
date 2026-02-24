@@ -15,7 +15,7 @@ ln -s "$(pwd)/op" /usr/local/bin/op
 Then use it from anywhere:
 
 ```bash
-op <tool> <input> [output] [--opts]
+op <patch> <input> [--args]
 ```
 
 ```bash
@@ -28,7 +28,7 @@ op                                           # list all tools
 ## Requirements
 
 - [ImageMagick](https://imagemagick.org/) for shell scripts: `brew install imagemagick`
-- [Python 3](https://www.python.org/) with Pillow and numpy for Python scripts: `pip3 install Pillow numpy`
+- [Python 3](https://www.python.org/) with Pillow and numpy for Python scripts: `pip3 install Pillow numpy scipy`
 
 ## Tools
 
@@ -44,9 +44,9 @@ Reduce color depth by posterizing to N bits per channel.
 ./bit-crush/bit-crush.sh <input> [output] [--bits N]
 ```
 
-Default: `--bits 1` (2 color levels — 8 total colors)
+Default: `--bits 3` (8 color levels — 512 total colors)
 
-![bit-crush example](_output/mclaren-crush-2bit.jpg)
+![bit-crush example](_output/mclaren-crush-3bit.jpg)
 
 ### res-crush
 
@@ -56,9 +56,9 @@ Downscale to a tiny resolution and upscale back with nearest-neighbor for a chun
 ./res-crush/res-crush.sh <input> [output] [--size N]
 ```
 
-Default: `--size 32`
+Default: `--size 64`
 
-![res-crush example](_output/mclaren-pixelate-32.jpg)
+![res-crush example](_output/mclaren-pixelate-64.jpg)
 
 ### closest-palette
 
@@ -167,3 +167,143 @@ Extract dark pixels from an image with a transparent background. Optionally reco
 Default: `--scale 1 --threshold 50 --color "#ff0000"`
 
 ![isolate-threshold example](_output/mclaren-threshold.jpg)
+
+### channel-swap
+
+Rearrange RGB channels — swap, duplicate, or reorder color channels.
+
+```bash
+python3 ./channel-swap/channel-swap.py <input> [output] [--map B,G,R]
+```
+
+Default: `--map B,G,R` (swaps red and blue)
+
+![channel-swap example](_output/mclaren-chswap.jpg)
+
+### echo
+
+Composite the image on itself with offset and fade for a ghosting/echo effect.
+
+```bash
+python3 ./echo/echo.py <input> [output] [--count N] [--offset-x N] [--offset-y N] [--decay N]
+```
+
+Default: `--count 12 --offset-x 30 --offset-y 12 --decay 0.6 --blend additive`
+
+![echo example](_output/mclaren-echo.jpg)
+
+### invert-lightness
+
+Invert the lightness channel in LAB color space — dark becomes light and vice versa, while hue and saturation are preserved.
+
+```bash
+python3 ./invert-lightness/invert-lightness.py <input> [output]
+```
+
+![invert-lightness example](_output/mclaren-invl.jpg)
+
+### kaleidoscope
+
+Extract a wedge from the image and mirror/rotate it around the center for a kaleidoscope effect.
+
+```bash
+python3 ./kaleidoscope/kaleidoscope.py <input> [output] [--segments N] [--angle N]
+```
+
+Default: `--segments 6 --angle 0`
+
+![kaleidoscope example](_output/mclaren-kaleido.jpg)
+
+### polar
+
+Remap image between Cartesian and polar coordinates.
+
+```bash
+python3 ./polar/polar.py <input> [output] [--mode to-polar|from-polar]
+```
+
+Default: `--mode to-polar`
+
+![polar example](_output/mclaren-polar.jpg)
+
+### posterize-hsv
+
+Quantize HSV channels independently for a posterized look with hue control.
+
+```bash
+python3 ./posterize-hsv/posterize-hsv.py <input> [output] [--h-levels N] [--s-levels N] [--v-levels N]
+```
+
+Default: `--h-levels 8 --s-levels 4 --v-levels 4`
+
+![posterize-hsv example](_output/mclaren-posterize.jpg)
+
+### raw-bend
+
+Treat pixel data as a raw audio signal and apply echo, chorus, and bitcrush distortion.
+
+```bash
+python3 ./raw-bend/raw-bend.py <input> [output] [--echo-strength N] [--echo-delay N] [--chorus N] [--bitcrush N]
+```
+
+Default: `--echo-strength 0.5 --echo-delay 500 --chorus 0.3 --bitcrush 0`
+
+![raw-bend example](_output/mclaren-rawbend.jpg)
+
+### seam-carve
+
+Content-aware image resizing by removing low-energy vertical seams.
+
+```bash
+python3 ./seam-carve/seam-carve.py <input> [output] [--percent N] [--energy gradient|sobel]
+```
+
+Default: `--percent 35 --energy sobel`
+
+![seam-carve example](_output/mclaren-seamcarve.jpg)
+
+### slit-scan
+
+Take one column from each rotation of the image and stitch them together for a slit-scan effect.
+
+```bash
+python3 ./slit-scan/slit-scan.py <input> [output] [--slits N] [--max-angle N]
+```
+
+Default: `--slits <width> --max-angle 180`
+
+![slit-scan example](_output/mclaren-slitscan.jpg)
+
+### thermal
+
+Map brightness to a false-color thermal palette (black to blue to red to yellow to white).
+
+```bash
+python3 ./thermal/thermal.py <input> [output]
+```
+
+![thermal example](_output/mclaren-thermal.jpg)
+
+### tile-shuffle
+
+Chop the image into an NxN grid and randomly permute the tiles.
+
+```bash
+python3 ./tile-shuffle/tile-shuffle.py <input> [output] [--grid N] [--seed N]
+```
+
+Default: `--grid 4`
+
+![tile-shuffle example](_output/mclaren-shuffle.jpg)
+
+### wrong-stride
+
+Flatten the pixel buffer and reshape with a wrong row width for a diagonal shear glitch.
+
+```bash
+python3 ./wrong-stride/wrong-stride.py <input> [output] [--offset N]
+```
+
+Default: `--offset 1`
+
+![wrong-stride example](_output/mclaren-stride.jpg)
