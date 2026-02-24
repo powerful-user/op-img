@@ -18,7 +18,7 @@ def parse_args():
     p.add_argument("input", help="Source image path")
     p.add_argument("output", nargs="?", default=None, help="Output PNG path (default: <input>-hatch.png)")
     p.add_argument("--layers", type=int, default=3, help="Number of hatch angle passes (default: 3)")
-    p.add_argument("--spacing", type=int, default=6, help="Pixels between lines (default: 6)")
+    p.add_argument("--spacing", type=int, default=12, help="Pixels between lines (default: 12)")
     p.add_argument("--thresholds", type=str, default=None,
                    help="Comma-separated brightness cutoffs 0-255, one per layer "
                         "(default: evenly spaced from 200 down to 50)")

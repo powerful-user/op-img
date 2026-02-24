@@ -41,10 +41,10 @@ def main() -> None:
     parser.add_argument(
         "--severity",
         type=int,
-        default=5,
+        default=8,
         choices=range(1, 11),
         metavar="N",
-        help="Glitch severity 1-10 (default: 5)",
+        help="Glitch severity 1-10 (default: 8)",
     )
     parser.add_argument("--seed", type=int, default=None, help="RNG seed for reproducible output")
     args = parser.parse_args()

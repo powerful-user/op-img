@@ -4,9 +4,9 @@
 # Usage: ./channel-offset.sh <input> [output] [--r X,Y] [--g X,Y] [--b X,Y]
 #   input  - Source image (GIF, PNG, JPG, etc.)
 #   output - Output PNG path (default: <input>-offset.png)
-#   --r     - Red channel offset in pixels (default: 0,0)
+#   --r     - Red channel offset in pixels (default: 30,15)
 #   --g     - Green channel offset in pixels (default: 0,0)
-#   --b     - Blue channel offset in pixels (default: 0,0)
+#   --b     - Blue channel offset in pixels (default: -25,-10)
 #
 # Example:
 #   ./channel-offset.sh ~/Desktop/photo.png --r 10,0 --b -10,0
@@ -16,9 +16,9 @@ set -euo pipefail
 
 INPUT=""
 OUTPUT=""
-R_OFF="12,6"
+R_OFF="30,15"
 G_OFF="0,0"
-B_OFF="-10,-4"
+B_OFF="-25,-10"
 
 while [ $# -gt 0 ]; do
   case "$1" in

@@ -16,7 +16,7 @@ def parse_args():
     p = argparse.ArgumentParser(description="Generate a halftone line pattern from an image.")
     p.add_argument("input", help="Source image path")
     p.add_argument("output", nargs="?", default=None, help="Output PNG path (default: <input>-lines.png)")
-    p.add_argument("--spacing", type=int, default=6, help="Pixels between line centers (default: 6)")
+    p.add_argument("--spacing", type=int, default=14, help="Pixels between line centers (default: 14)")
     p.add_argument("--min-width", type=float, default=0, help="Minimum line width (default: 0)")
     p.add_argument("--max-width", type=float, default=None, help="Maximum line width (default: spacing)")
     p.add_argument("--angle", type=float, default=0, help="Line angle in degrees, 0=horizontal 90=vertical (default: 0)")
