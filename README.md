@@ -32,6 +32,10 @@ op                                           # list all tools
 
 ## Tools
 
+All examples below use this image as input:
+
+![default input](_output/mclaren.jpg)
+
 ### bit-crush
 
 Reduce color depth by posterizing to N bits per channel.
