@@ -17,7 +17,7 @@ class TestClosestPalette:
         tmp_path, img = tmp_workdir
         out = str(tmp_path / "custom.png")
         r = run_tool("closest-palette", "closest-palette.py", [
-            img, out, "--palette", "#000000,#ffffff",
+            img, out, "--palette", "#000,#fff",
         ])
         assert r.returncode == 0
         assert_valid_image(out)

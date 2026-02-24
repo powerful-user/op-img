@@ -15,7 +15,7 @@ class TestPixelSort:
         tmp_path, img = tmp_workdir
         out = str(tmp_path / "sorted.png")
         r = run_tool("pixel-sort", "pixel-sort.py", [
-            img, out, "--by", "hue", "--threshold", "150",
+            img, out, "--by", "hue", "--threshold", "150", "--direction", "column",
         ])
         assert r.returncode == 0
         assert_valid_image(out)
