@@ -38,7 +38,7 @@ Move into it:
 cd op-img
 ```
 
-Create a virtual environment for Python 3.10 or later:
+Create a virtual environment for Python 3.12 or later:
 
 ```bash
 python3 -m venv .venv

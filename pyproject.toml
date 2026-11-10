@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "op-img"
 description = "A composable image manipulation CLI"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE"]
 dependencies = ["Pillow>=10.1", "numpy", "scipy"]
