@@ -15,3 +15,6 @@ __pycache__/
 # Packaging
 dist/
 .worktrees/
+
+# Process documents live in the private op-img-docs repository
+docs/
