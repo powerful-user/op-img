@@ -37,13 +37,13 @@ jobs:
       - uses: Homebrew/actions/setup-homebrew@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
       - name: Stage the formula in a local test tap
         run: |
-          brew tap-new --no-git service-dept/op-img-ci
-          cp Formula/op-img.rb "$(brew --repository service-dept/op-img-ci)/Formula/op-img.rb"
+          brew tap-new --no-git powerful-user/op-img-ci
+          cp Formula/op-img.rb "$(brew --repository powerful-user/op-img-ci)/Formula/op-img.rb"
       - name: Check formula style
-        run: brew style service-dept/op-img-ci/op-img
+        run: brew style powerful-user/op-img-ci/op-img
       - name: Install the released PyPI sdist
-        run: brew install --build-from-source service-dept/op-img-ci/op-img
+        run: brew install --build-from-source powerful-user/op-img-ci/op-img
       - name: Audit formula
-        run: brew audit --strict service-dept/op-img-ci/op-img
+        run: brew audit --strict powerful-user/op-img-ci/op-img
       - name: Test the installed command and image processing
-        run: brew test service-dept/op-img-ci/op-img
+        run: brew test powerful-user/op-img-ci/op-img

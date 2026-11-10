@@ -18,8 +18,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/service-dept/op-img"
-Repository = "https://github.com/service-dept/op-img"
+Homepage = "https://github.com/powerful-user/op-img"
+Repository = "https://github.com/powerful-user/op-img"
 
 [project.scripts]
 op-img = "op_img.cli:main"
@@ -49,11 +49,11 @@ path = "README.md"
 
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 pattern = '\]\((patches|assets)/'
-replacement = '](https://raw.githubusercontent.com/service-dept/op-img/main/\1/'
+replacement = '](https://raw.githubusercontent.com/powerful-user/op-img/main/\1/'
 
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 pattern = '\]\(LICENSE\)'
-replacement = '](https://github.com/service-dept/op-img/blob/main/LICENSE)'
+replacement = '](https://github.com/powerful-user/op-img/blob/main/LICENSE)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

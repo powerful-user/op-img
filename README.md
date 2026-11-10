@@ -19,7 +19,7 @@ pipx install op-img
 Or, on macOS or Linux, with [Homebrew](https://brew.sh/):
 
 ```bash
-brew install service-dept/tap/op-img
+brew install powerful-user/tap/op-img
 ```
 
 Either one puts the `op-img` command on your PATH, along with Pillow, numpy and scipy.
@@ -29,7 +29,7 @@ Either one puts the `op-img` command on your PATH, along with Pillow, numpy and 
 To work on op-img itself, install it from a clone instead. Clone the repository:
 
 ```bash
-git clone https://github.com/service-dept/op-img.git
+git clone https://github.com/powerful-user/op-img.git
 ```
 
 Move into it:

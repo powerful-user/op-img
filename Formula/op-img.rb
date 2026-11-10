@@ -2,7 +2,7 @@ class OpImg < Formula
   include Language::Python::Virtualenv
 
   desc "Composable image manipulation CLI"
-  homepage "https://github.com/service-dept/op-img"
+  homepage "https://github.com/powerful-user/op-img"
   url "https://files.pythonhosted.org/packages/aa/e6/222ac04e17be70de7e010fa026a156409ecebe99448dc8d692397330f939/op_img-0.2.0.tar.gz"
   sha256 "9f128e008481c17c0501060b6261f5dfe6916447b4b08740ecce5fe6ea1ab13c"
   license "MIT"
